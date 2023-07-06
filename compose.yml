@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  spring-pgsql:
+    image: postgres
+    container_name: springdb
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Postgres2023!"
+      POSTGRES_DB: "products-api"
+    ports:
+      - "5432:5432"
