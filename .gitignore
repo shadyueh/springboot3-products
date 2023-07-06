@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.pgsql/
+!.pgsql/compose.yml
+!.pgsql/.env.example
