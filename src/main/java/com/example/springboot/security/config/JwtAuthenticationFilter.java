@@ -15,10 +15,21 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_SUBSTRING = "Bearer ";
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        // TODO needs implementation of exceptions
+        final String authHeader = request.getHeader(AUTHORIZATION_HEADER);
+        final String jwt;
+
+        if(authHeader==null || !authHeader.startsWith(AUTHORIZATION_SUBSTRING)){
+            filterChain.doFilter(request,response);
+            return;
+        }
+
+        jwt = authHeader.substring( AUTHORIZATION_SUBSTRING.length());
     }
 }
