@@ -15,10 +15,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    final JwtService jwtService;
-
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String AUTHORIZATION_SUBSTRING = "Bearer ";
+    final JwtService jwtService;
 
     @Override
     protected void doFilterInternal(
@@ -27,11 +26,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader(AUTHORIZATION_HEADER);
         final String jwt;
         final String userEmail;
-        if(authHeader==null || !authHeader.startsWith(AUTHORIZATION_SUBSTRING)){
-            filterChain.doFilter(request,response);
+        if (authHeader == null || !authHeader.startsWith(AUTHORIZATION_SUBSTRING)) {
+            filterChain.doFilter(request, response);
             return;
         }
-        jwt = authHeader.substring( AUTHORIZATION_SUBSTRING.length());
+        jwt = authHeader.substring(AUTHORIZATION_SUBSTRING.length());
         userEmail = jwtService.extractUsername(jwt);
     }
 }
